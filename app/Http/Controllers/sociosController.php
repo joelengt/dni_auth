@@ -2,64 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
 use App\Http\Requests;
 use App\Socio;
 
-class sociosController extends BaseController
+use App\Http\Requests\ValidatePartnerRequest;
+
+class sociosController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function validateSocio (ValidatePartnerRequest $req) {
 
-    public function validateSocio (Request $req) {
-        // Opteniendo Valores del formulario
-        $dniGet = $req->input('dni');
-        $codigoGet = $req->input('codigo');
+        if($req->fails()) {
+            return redirect(url('/'))->withErrors($req);
+        } else {
+            // Opteniendo Valores del formulario
+            $dniGet = $req->input('dni');
+            $codigoGet = $req->input('codigo');
 
-        $message = '';
+            $message = '';
 
-        // Evaluando que los campos no llegen vacios
-        if($dniGet !== '' && $codigoGet !== '') {
+            // Evaluando que los campos no llegen vacios
+            if($dniGet !== '' && $codigoGet !== '') {
 
-            // Buscando Socio por coincicencia, Campo de dni
-            $userFound = Socio::where('codigo', $codigoGet)
-                ->first();
+                // Buscando Socio por coincicencia, Campo de dni
+                $userFound = Socio::where('codigo', $codigoGet)
+                    ->first();
 
-            // Validando Exitencia de Socio por codigo en le DB
-            if(!is_null($userFound)) {
+                // Validando Exitencia de Socio por codigo en le DB
+                if(!is_null($userFound)) {
 
-                // El usuario fue encontrado en la DB
-                if($userFound->numero_doc == $dniGet) {
-                    // El campo de dni exite en el socio evaluado
+                    // El usuario fue encontrado en la DB
+                    if($userFound->numero_doc == $dniGet) {
+                        // El campo de dni exite en el socio evaluado
 
-                    // Evaluando existencia del campo email en el socio
-                    if($userFound->email == '') {
-                        // Si el campo email es blanco
-                        $data['codigo'] = $codigoGet;
-                        $data['dni'] = $dniGet;
+                        // Evaluando existencia del campo email en el socio
+                        if($userFound->email == '') {
+                            // Si el campo email es blanco
+                            $data['codigo'] = $codigoGet;
+                            $data['dni'] = $dniGet;
 
-                        // Render view: Processo success
-                        return view('process_success', $data);
+                            // Render view: Processo success
+                            return view('process_success', $data);
+
+                        } else {
+                            // Si en campo email ya esta lleno
+                            // Render view: Processo again
+                            $message = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
+
+                            // Render view: Processo Fail
+                            $data['message'] = $message;
+                            return view('process_again', $data);
+                        }
 
                     } else {
-                        // Si en campo email ya esta lleno
-                        // Render view: Processo again
-                        $message = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
+
+                        // El usuario por codigo no fue encontrado en la DB
+                        $message = 'El campo dni, es incorrecto';
 
                         // Render view: Processo Fail
                         $data['message'] = $message;
-                        return view('process_again', $data);
+                        return view('process_fail', $data);
+
                     }
 
                 } else {
-
                     // El usuario por codigo no fue encontrado en la DB
-                    $message = 'El campo dni, es incorrecto';
+                    $message = 'El campo codigo, es incorrecto';
 
                     // Render view: Processo Fail
                     $data['message'] = $message;
@@ -68,25 +77,14 @@ class sociosController extends BaseController
                 }
 
             } else {
-                // El usuario por codigo no fue encontrado en la DB
-                $message = 'El campo codigo, es incorrecto';
 
                 // Render view: Processo Fail
+                $message = 'Los campos codigo y dni son obligatorios';
                 $data['message'] = $message;
                 return view('process_fail', $data);
 
             }
-
-        } else {
-
-            // Render view: Processo Fail
-            $message = 'Los campos codigo y dni son obligatorios';
-            $data['message'] = $message;
-            return view('process_fail', $data);
-
         }
-
-
 
     }
 

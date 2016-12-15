@@ -73,9 +73,11 @@
                 </div>
             @endif
 
+
+
             <div class="content">
                 <div>
-                    <form action="/api/socio/value" method="POST">
+                    <form action="{{ route('validate.user') }}" method="POST">
                         {{ csrf_field() }}
                         <div>
                             <h2>Validar usuario</h2>
@@ -100,6 +102,10 @@
                             <button>Enviar</button>
                         </div>
                     </form>
+
+                    @if($errors->any())
+                        <h4>{{$errors->first()}}</h4>
+                    @endif
 
                 </div>
             </div>
