@@ -62,6 +62,16 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .btnFacebookStyle {
+                color: white;
+                text-align: center;
+                background: #3B5998;
+                border: 0;
+                padding: .6rem 2rem;
+                font-size: .9rem;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -78,7 +88,7 @@
 	                <h1>Ingresa con Facebook</h1>
 	                <div>
 
-                        <button id="btnLoginFacebook">Login Facebook</button>
+                        <button id="btnLoginFacebook" class="btnFacebookStyle">Login Facebook</button>
 	                </div>
 	              <div id="infoBox">
                     
