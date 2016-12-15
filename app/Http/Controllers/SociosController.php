@@ -10,7 +10,7 @@ use App\Socio;
 use App\Http\Requests\ValidatePartnerRequest;
 use App\Http\Requests\ValidateFacebookRequest;
 
-class sociosController extends Controller
+class SociosController extends Controller
 {
     public function validateSocio (ValidatePartnerRequest $req) {
         // Values
@@ -41,21 +41,14 @@ class sociosController extends Controller
             } else {
                 // Si en campo email ya esta lleno
                 // Render view: Processo again
-                $message = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
-
-                // Render view: Processo Fail
-                $data['message'] = $message;
+                $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';;
                 return view('process_again', $data);
             }
 
         } else {
-            // throw new \Exception('Partner has not been found');
-
             // El usuario no fue encontrado en la DB
             // Render view: Processo fail
-            $message = 'El usuario solicitado no fue encontrado 403';
-            $data['message'] = $message;
-
+            $data['message'] = 'El usuario solicitado no fue encontrado 403';
             return view('process_again', $data);
         }
     }
@@ -69,8 +62,6 @@ class sociosController extends Controller
         $name = $params['name'];
         $avatar = $params['avatar'];
 
-        $message = '';
-
         // Buscando Socio por Coincidencia, campo dni y codigo
         $userFound = Socio::where('numero_doc', $dni)
             ->where('codigo', $codigo)
@@ -78,28 +69,21 @@ class sociosController extends Controller
 
         // Validando Existencia de Socio en la DB
         if(!is_null($userFound)) {
+            $data['name'] = $name;
+            $data['avatar'] = $avatar;
+
             // Validando campo email
             if($userFound->email !== '') {
                 // Render view: Processo again
-                $message = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
-
-                $data['message'] = $message;
-                $data['name'] = $name;
-                $data['avatar'] = $avatar;
-
+                $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
                 return view('process_correct', $data);
-
             } else {
                 // Si en campo email es blanco
                 $userFound->email = $email;
                 $userFound->save();
 
                 // Render view: Processo Correct
-                $message = 'Registramos tus datos de facebook exitosamente!';
-
-                $data['message'] = $message;
-                $data['name'] = $name;
-                $data['avatar'] = $avatar;
+                $data['message'] = 'Registramos tus datos de facebook exitosamente!';
 
                 return view('process_correct', $data);
             }
@@ -107,11 +91,8 @@ class sociosController extends Controller
         } else {
             // El usuario no fue encontrado en la DB
             // Render view: Processo fail
-            $message = 'El usuario solicitado no fue encontrado 403';
-            $data['message'] = $message;
-
+            $data['message'] = 'El usuario solicitado no fue encontrado 403';
             return view('process_again', $data);
-
         }
 
     }

@@ -26,7 +26,7 @@ class ValidateFacebookRequest extends FormRequest
         return [
             'codigo' => 'required|exists:re_socios,codigo',
             'dni' => 'required|exists:re_socios,numero_doc',
-            'email' => 'required',
+            'email' => 'required|email',
             'name' => 'required',
             'avatar' => 'required'
         ];
