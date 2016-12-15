@@ -10,5 +10,6 @@ return [
     'frutas' => [],
     'numeros' => [],
     'URL' => 'http://',
-    'PI' => 3.14159
+    'PI' => 3.14159,
+    'persons' => []
 ];

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 // Viewer: Validation Form codigo-dni
 Route::get('/', 'HomeController@index');
 
-Route::get('/test/{dni}', 'HomeController@test');
+Route::get('/test/{dni}', 'HomeController@getP');
 
 // Viewer: Process Facebook
 Route::post('/api/socio/value', ['as' => 'validate.user', 'uses' => 'SociosController@validateSocio']);
@@ -26,3 +26,8 @@ Route::post('/api/socio/value', ['as' => 'validate.user', 'uses' => 'SociosContr
 Route::post('/api/socio/send-data', 'SociosController@updateSocio');
 
 
+Route::match(['get', 'post'], '/api/books', 'BuildData@data');
+
+Route::any('foo', function () {
+    //
+});

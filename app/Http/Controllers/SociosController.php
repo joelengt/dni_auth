@@ -53,30 +53,28 @@ class SociosController extends Controller
         $name = $req->input('name');
         $avatar = $req->input('avatar');
 
-        // Buscando Socio por Coincidencia, campo dni y codigo
+        // Search Partner on DB by numero_doc and codigo
         $userFound = Socio::where('numero_doc', $dni)
             ->where('codigo', $codigo)
             ->first();
 
-        // Validando Existencia de Socio en la DB
+        // Validate if data partner exit on DB
         if(!is_null($userFound)) {
             $data['name'] = $name;
             $data['avatar'] = $avatar;
 
-            // Validando campo email
+            // Validate attribute email
             if($userFound->email !== '') {
                 // Render view: Processo again
                 $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
                 return view('process_correct', $data);
             } else {
-                // Si en campo email es blanco
-
-                // Validate
+                // If attribute is blank
 
                 $userFound->email = $email;
                 $userFound->save();
 
-                // Render view: Processo Correct
+                // Render view: Process Correct
                 $data['message'] = 'Registramos tus datos de facebook exitosamente!';
 
                 return view('process_correct', $data);
