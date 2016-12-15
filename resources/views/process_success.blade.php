@@ -148,10 +148,17 @@
 
                                              // Validate Error: Email taken
                                              if(result.hasOwnProperty('errors')) {
-                                                 console.log('One Error, email taken');
 
-                                                 var messageError = result.errors.email[0];
-                                                 $boxInfo.innerHTML = messageError;
+                                                 // Validation Error Message
+                                                 var messageErrors = result.errors;
+
+                                                 console.log(messageErrors);
+
+                                                 for(var msg in messageErrors) {
+                                                     messageErrors = messageErrors[msg][0];
+                                                     $boxInfo.innerHTML += messageErrors + '<br>';
+                                                 }
+
                                                  $boxInfo.style.paddingTop = '1.5rem';
 
                                              } else {
