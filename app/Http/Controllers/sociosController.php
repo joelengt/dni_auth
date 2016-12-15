@@ -23,17 +23,24 @@ class sociosController extends BaseController
         $codigo_get = $req->input('codigo');
         
         // Validando Campo de dni y codigo
-        $user_find = Socio::where('numero_doc', $dni_get)
-                    ->where('codigo', $codigo_get)
-                    ->count();
-                     
-        if($user_find > 0) {
+        $userFound = Socio::where('numero_doc', $dni_get)
+            ->where('codigo', $codigo_get)
+            ->first();
+
+        if(!is_null($userFound)) {
             // El usuario fue encontrado en la DB
 
-            $data['codigo'] = $codigo_get;
-            $data['dni'] = $dni_get;
+            if($userFound->email == '') {
+                // Si el campo email es blanco
+                $data['codigo'] = $codigo_get;
+                $data['dni'] = $dni_get;
 
-            return view('process_success', $data);
+                return view('process_success', $data);
+
+            } else {
+                // Si en campo email ya esta lleno
+                return view('process_again');
+            }
             
         } else {
             // El usuario no fue encontrado en la DB

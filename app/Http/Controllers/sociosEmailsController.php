@@ -17,15 +17,20 @@ class SociosEmailsController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function data (Request $req) {
+
+        //$req->query('param_name'); get query string param
+
+        $params = $req->all();
+
         // Valores del formulario
-        $codigo_get = $_POST['codigo'];
-        $dni_get = $_POST['dni'];
-        $email_get = $_POST['email'];
+        $codigo_get = $params['codigo'];
+        $dni_get = $params['dni'];
+        $email_get = $params['email'];
 
         $userFound = Socio::where('numero_doc', $dni_get)
                     ->where('codigo', $codigo_get)
                     ->first();
-        
+
         if(!is_null($userFound)) {
 
             if($userFound->email !== '') {
@@ -38,6 +43,8 @@ class SociosEmailsController extends BaseController
                 $userFound->save();
 
                 return view('process_correct');
+
+                // return response()->json(['status' => 'error', 'message' => 'an error has occurred']);
             }
 
         } else {
