@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div>
-                    <form action="/api/socio-value" method="POST">
+                    <form action="/api/socio/value" method="POST">
                         {{ csrf_field() }}
                         <div>
                             <h2>Validar usuario</h2>
@@ -100,6 +100,7 @@
                             <button>Enviar</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

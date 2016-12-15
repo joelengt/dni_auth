@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div>
-                    <h3>Message: Ya tenemos tus datos</h3>
+                    <h3>Message:  <?= $message ?></h3>
                 </div>
             </div>
         </div>

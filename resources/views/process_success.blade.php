@@ -77,8 +77,8 @@
                  <div id="container">
 	                <h1>Ingresa con Facebook</h1>
 	                <div>
-	                    <fb:login-button perms="public_profile,email,user_birthday"></fb:login-button>
 
+                        <button id="btnLoginFacebook">Login Facebook</button>
 	                </div>
 	              <div id="infoBox">
                     
@@ -104,46 +104,51 @@
 	             xfbml: true
 	           });
 
-	           FB.login(
-	               function(response) {
-	                   if (response.authResponse) {
-	                      FB.api('/me?fields=id,name,email,permissions', function(response) {
-	                           console.log('Datos del usuario');
-	                           console.log(response);
-	                           
-                               // Proceso de enviar datos al servidor
-                               var dato_user = {
-                                   info: response,
-                                   email: response.email,
-                                   avatar: `http://graph.facebook.com/${ response.id }/picture?type=large`,
-                                   codigo: '<?= $codigo ?>',
-                                   dni: '<?= $dni ?>'
-                               }
+	           // Evento Click de Boton login con facebook
+                 $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
 
-                               console.log('DATOS PARA ENVIAR');
-                               console.log(dato_user);
-                               
-                               $.ajax({
-                                   url: 'http://dni-test.mambo.lv:8080/api/send-data',
-                                   method: 'POST',
-                                   data: dato_user,
-                                   success: function (result) {
-                                       console.log('Respuesta');
-                                       console.log(result);
+                 $btnLoginFacebook.addEventListener('click', function () {
+                     FB.login(
+                         function(response) {
+                             if (response.authResponse) {
+                                 FB.api('/me?fields=id,name,email,permissions', function(response) {
+                                     console.log('Datos del usuario');
+                                     console.log(response);
 
-                                       document.body.innerHTML = result;
+                                     // Proceso de enviar datos al servidor
+                                     var dato_user = {
+                                         name: response.name,
+                                         email: response.email,
+                                         avatar: `http://graph.facebook.com/${ response.id }/picture?type=large`,
+                                         codigo: '<?= $codigo ?>',
+                                         dni: '<?= $dni ?>'
+                                     }
 
-                                   }
-                               })
+                                     console.log('DATOS PARA ENVIAR');
+                                     console.log(dato_user);
 
-	                      });
+                                     $.ajax({
+                                         url: 'http://dni-test.mambo.lv:8080/api/socio/send-data',
+                                         method: 'POST',
+                                         data: dato_user,
+                                         success: function (result) {
+                                             console.log('Respuesta');
+                                             console.log(result);
 
-	                   } else {
-	                       console.log('User cancelled login or did not fully authorize.');
-	                   }
-	               },
-	               {scope:'email'}
-	           );
+                                             document.body.innerHTML = result;
+
+                                         }
+                                     })
+
+                                 });
+
+                             } else {
+                                 console.log('User cancelled login or did not fully authorize.');
+                             }
+                         },
+                         {scope:'email'}
+                     );
+                 })
 	         }
 	       });
 

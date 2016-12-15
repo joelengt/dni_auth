@@ -75,7 +75,9 @@
 
             <div class="content">
                 <div>
-                    <h3>Ok: Tus datos fueron guardados correctamente</h3>
+                    <p>Felicidades <?= $name ?></p>
+                    <img src="<?= $avatar ?>">
+                    <h3><?= $message ?></h3>
                 </div>
             </div>
         </div>

@@ -14,15 +14,15 @@
 use Illuminate\Support\Facades\DB;
 
 
-// Formulario de Inicio
+// Viewer: Validation Form codigo-dni
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Viewer Facebook => success
-Route::post('/api/socio-value', 'sociosController@data');
+// Viewer: Process Facebook
+Route::post('/api/socio/value', 'sociosController@validateSocio');
 
-// API Get => Routes 
-Route::post('/api/send-data', 'sociosEmailsController@data');
+// API: Validate to Update email user
+Route::post('/api/socio/send-data', 'sociosController@updateSocio');
 
 
