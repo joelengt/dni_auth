@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidatePartnerRequest extends FormRequest
+class ValidateFacebookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,10 @@ class ValidatePartnerRequest extends FormRequest
     {
         return [
             'codigo' => 'required|exists:re_socios,codigo',
-            'dni' => 'required|exists:re_socios,numero_doc'
+            'dni' => 'required|exists:re_socios,numero_doc',
+            'email' => 'required',
+            'name' => 'required',
+            'avatar' => 'required'
         ];
     }
 
