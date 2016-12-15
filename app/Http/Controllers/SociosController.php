@@ -13,10 +13,11 @@ use App\Http\Requests\ValidateFacebookRequest;
 class SociosController extends Controller
 {
     public function validateSocio (ValidatePartnerRequest $req) {
-        // Values
+        // Request params values
         $codigo = $req->input('codigo');
         $dni = $req->input('dni');
 
+        // Search Partner on DataBase
         $userFound = Socio::where('codigo', $codigo)
             ->where('numero_doc', $dni)
             ->first();
@@ -45,7 +46,7 @@ class SociosController extends Controller
     }
 
     public function updateSocio (ValidateFacebookRequest $req) {
-        // Value
+        // Request Params
         $codigo = $req->input('codigo');
         $dni = $req->input('dni');
         $email = $req->input('email');
@@ -69,6 +70,9 @@ class SociosController extends Controller
                 return view('process_correct', $data);
             } else {
                 // Si en campo email es blanco
+
+                // Validate
+
                 $userFound->email = $email;
                 $userFound->save();
 

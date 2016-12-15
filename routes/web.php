@@ -20,9 +20,9 @@ Route::get('/', 'HomeController@index');
 Route::get('/test/{dni}', 'HomeController@test');
 
 // Viewer: Process Facebook
-Route::post('/api/socio/value', ['as' => 'validate.user', 'uses' => 'sociosController@validateSocio']);
+Route::post('/api/socio/value', ['as' => 'validate.user', 'uses' => 'SociosController@validateSocio']);
 
 // API: Validate to Update email user
-Route::post('/api/socio/send-data', 'sociosController@updateSocio');
+Route::post('/api/socio/send-data', 'SociosController@updateSocio');
 
 

@@ -9,7 +9,6 @@ class HomeController extends Controller
     public function index (Request $request) {
 
         //dd(config('book.PI'));
-
         //dd(env('BOOK_CLASS'));
 
         return view('welcome');

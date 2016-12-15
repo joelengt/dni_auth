@@ -114,8 +114,9 @@
 	             xfbml: true
 	           });
 
-	           // Evento Click de Boton login con facebook
-                 $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
+	             // Evento Click de Boton login con facebook
+                 var $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
+                 var $boxInfo = document.querySelector('#infoBox');
 
                  $btnLoginFacebook.addEventListener('click', function () {
                      FB.login(
@@ -145,7 +146,19 @@
                                              console.log('Respuesta');
                                              console.log(result);
 
-                                             document.body.innerHTML = result;
+                                             // Validate Error: Email taken
+                                             if(result.hasOwnProperty('errors')) {
+                                                 console.log('One Error, email taken');
+
+                                                 var messageError = result.errors.email[0];
+                                                 $boxInfo.innerHTML = messageError;
+                                                 $boxInfo.style.paddingTop = '1.5rem';
+
+                                             } else {
+                                                 // El proceso se completo con exito
+                                                 document.body.innerHTML = result;
+
+                                             }
 
                                          }
                                      })
