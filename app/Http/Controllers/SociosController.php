@@ -14,15 +14,8 @@ class SociosController extends Controller
 {
     public function validateSocio (ValidatePartnerRequest $req) {
         // Values
-        //$params = $req->all();
         $codigo = $req->input('codigo');
         $dni = $req->input('dni');
-
-        // $value = $req->
-        // query uri
-        // age = $req->query('dni');
-
-        $message = '';
 
         $userFound = Socio::where('codigo', $codigo)
             ->where('numero_doc', $dni)
@@ -30,8 +23,8 @@ class SociosController extends Controller
 
         if(!is_null($userFound)) {
             // Evaluando existencia del campo email en el socio
+
             if($userFound->email == '') {
-                // Si el campo email es blanco
                 $data['codigo'] = $codigo;
                 $data['dni'] = $dni;
 
@@ -39,14 +32,12 @@ class SociosController extends Controller
                 return view('process_success', $data);
 
             } else {
-                // Si en campo email ya esta lleno
                 // Render view: Processo again
                 $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';;
                 return view('process_again', $data);
             }
 
         } else {
-            // El usuario no fue encontrado en la DB
             // Render view: Processo fail
             $data['message'] = 'El usuario solicitado no fue encontrado 403';
             return view('process_again', $data);
@@ -55,12 +46,11 @@ class SociosController extends Controller
 
     public function updateSocio (ValidateFacebookRequest $req) {
         // Value
-        $params = $req->all();
-        $codigo = $params['codigo'];
-        $dni = $params['dni'];
-        $email = $params['email'];
-        $name = $params['name'];
-        $avatar = $params['avatar'];
+        $codigo = $req->input('codigo');
+        $dni = $req->input('dni');
+        $email = $req->input('email');
+        $name = $req->input('name');
+        $avatar = $req->input('avatar');
 
         // Buscando Socio por Coincidencia, campo dni y codigo
         $userFound = Socio::where('numero_doc', $dni)
@@ -89,7 +79,6 @@ class SociosController extends Controller
             }
 
         } else {
-            // El usuario no fue encontrado en la DB
             // Render view: Processo fail
             $data['message'] = 'El usuario solicitado no fue encontrado 403';
             return view('process_again', $data);
