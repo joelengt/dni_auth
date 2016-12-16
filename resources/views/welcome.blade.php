@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="_token" content="{!! csrf_token() !!}"/>
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -94,11 +94,9 @@
             @endif
 
 
-
             <div class="content">
                 <div>
-                    <form action="{{ route('validate.user') }}" method="POST">
-                        {{ csrf_field() }}
+                    <form id="FormMain" data-url="{{ route('validate.user') }}">
                         <div>
                             <h2>Validar usuario</h2>
                         </div>
@@ -107,7 +105,7 @@
                                 <label for="#">Codigo</label>
                             </div>
                             <div>
-                                <input type="text" name="codigo">
+                                <input type="text" name="codigo" id="txtCodigo">
                             </div>
                         </div>
                         <div>
@@ -115,7 +113,7 @@
                                 <label for="#">DNI</label>
                             </div>
                             <div>
-                                <input type="text" name="dni">
+                                <input type="text" name="dni" id="txtDni">
                             </div>
                         </div>
                         <div class="FormValidate">
@@ -126,11 +124,12 @@
                                 <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#">Terminos y condiciones</a></div>
                             </div>
                             <div class="FormValidate__btn-submit">
-                                <button id="btnSendForm">Enviar</button>
+                                <div id="btnSendForm">Enviar</div>
                             </div>
                         </div>
                     </form>
 
+                    <div id="boxInfo"></div>
                     @if($errors->any())
                         <h4>{{$errors->first()}}</h4>
                     @endif
@@ -138,5 +137,12 @@
                 </div>
             </div>
         </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+            });
+        </script>
+        <script type="text/javascript" src="./js/form.js"></script>
     </body>
 </html>
