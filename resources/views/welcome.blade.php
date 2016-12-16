@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="./css/modal/index.css">
+        <link rel="stylesheet" href="./css/form/index.css">
         <!-- Styles -->
         <style>
             html, body {
@@ -62,26 +63,6 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            /* Form Validate */
-            .FormValidate {
-                text-align: center;
-            }
-            .FormValidate__terminos-condiciones {
-                display: block;
-                padding-top: 1rem;
-            }
-            .FormValidate__terminos-condiciones--checkbox {
-                display: inline-block;
-            }
-
-            .FormValidate__terminos-condiciones--text {
-                display: inline-block;
-            }
-
-            .FormValidate__btn-submit {
-                display: block;
-                padding-top: 1rem;
-            }
         </style>
     </head>
     <body>
@@ -96,35 +77,39 @@
 
             <div class="content">
                 <div>
-                    <form id="FormMain" data-url="{{ route('validate.user') }}">
-                        <div>
+                    <form id="FormMain" data-url="{{ route('validate.user') }}" class="FormMain">
+                        <div class="FormMain__title">
                             <h2>Validar usuario</h2>
                         </div>
-                        <div>
-                            <div>
-                                <label for="#">Codigo</label>
-                            </div>
-                            <div>
-                                <input type="text" name="codigo" id="txtCodigo">
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <label for="#">DNI</label>
-                            </div>
-                            <div>
-                                <input type="text" name="dni" id="txtDni">
-                            </div>
-                        </div>
-                        <div class="FormValidate">
-                            <div class="FormValidate__terminos-condiciones">
-                                <div class="FormValidate__terminos-condiciones--checkbox">
-                                    <input type="checkbox" id="btnCheck">
+                        <div class="FormMain__content">
+                            <div class="FormMain__content--box-inputs">
+                                <div class="FormMain__content--codigo">
+                                    <div class="FormMain__content--codigo__label">
+                                        <label for="#">Codigo</label>
+                                    </div>
+                                    <div class="FormMain__content--codigo__input">
+                                        <input type="text" name="codigo" id="txtCodigo" class="inputTextStyle">
+                                    </div>
                                 </div>
-                                <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
+                                <div class="FormMain__content--dni">
+                                    <div class="FormMain__content--codigo__label">
+                                        <label for="#">DNI</label>
+                                    </div>
+                                    <div class="FormMain__content--codigo__input">
+                                        <input type="text" name="dni" id="txtDni" class="inputTextStyle  inputTextStyle--codigo-helper">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="FormValidate__btn-submit">
-                                <div id="btnSendForm">Enviar</div>
+                            <div class="FormMain__content--TermsConditions  FormValidate">
+                                <div class="FormValidate__terminos-condiciones">
+                                    <div class="FormValidate__terminos-condiciones--checkbox">
+                                        <input type="checkbox" id="btnCheck">
+                                    </div>
+                                    <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
+                                </div>
+                                <div class="FormValidate__btn-submit">
+                                    <div id="btnSendForm" class="btnSendForm">Enviar</div>
+                                </div>
                             </div>
                         </div>
                     </form>

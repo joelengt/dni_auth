@@ -1,0 +1,80 @@
+.btnSendForm {
+    background: #21c4a6;
+    display: block;
+    padding: .6rem;
+    color: white;
+    width: 100px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+/* Form Validate */
+.FormValidate {
+    text-align: center;
+}
+.FormValidate__terminos-condiciones {
+    display: block;
+    padding-top: 1rem;
+}
+.FormValidate__terminos-condiciones--checkbox {
+    display: inline-block;
+}
+
+.FormValidate__terminos-condiciones--text {
+    display: inline-block;
+}
+
+.FormValidate__btn-submit {
+    display: block;
+    padding-top: 1rem;
+}
+
+/* Form Content Style */
+.FormMain {
+
+}
+
+.FormMain__content--box-inputs {
+    text-align: left;
+}
+
+.FormMain__content--codigo {
+    display: block;
+    padding-bottom: 1rem;
+}
+
+.FormMain__content--codigo__label {
+    display: inline-block;
+}
+
+.FormMain__content--codigo__input {
+    display: inline-block;
+    margin-left: .5rem;
+}
+
+.FormMain__content--dni {
+    display: block;
+    padding-bottom: 1rem;
+}
+
+.FormMain__content--codigo__label {
+    display: inline-block;
+}
+
+.FormMain__content--codigo__input {
+    display: inline-block;
+    margin-left: .5rem;
+}
+
+.inputTextStyle {
+    padding: .7rem 0;
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    font-size: .9rem;
+}
+
+
+.inputTextStyle--codigo-helper {
+    margin-left: 1.5rem;
+}
