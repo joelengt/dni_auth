@@ -11,6 +11,7 @@ function formEvent() {
     var $btnToSend = document.querySelector('#btnSendForm');
     var $txtCodigo = document.querySelector('#txtCodigo');
     var $txtDni = document.querySelector('#txtDni');
+    var $btnCheck = document.querySelector('#btnCheck');
 
     // Promise to Partner
     function fromToSend(reqURL, info, method) {
@@ -39,27 +40,37 @@ function formEvent() {
             dni: $txtDni.value
         }
 
-        // Evaluate Event from ajax
-        fromToSend($URL_DATA, infoPartner, 'post')
-            .then(function (result) {
-                console.log(result);
-                document.body.innerHTML = result;
-            })
-            .catch(function (err) {
-                // Limpiando boxInfo
-                $boxInfo.innerHTML = '';
-                console.log( "error" );
+        // Evaluate input check
+        if($btnCheck.checked === true) {
+            console.log(true);
 
-                var messageErrors = err.responseText;
-                messageErrors = JSON.parse(messageErrors);
+            // Evaluate Event from ajax
+            fromToSend($URL_DATA, infoPartner, 'post')
+                .then(function (result) {
+                    console.log(result);
+                    document.body.innerHTML = result;
+                })
+                .catch(function (err) {
+                    // Limpiando boxInfo
+                    $boxInfo.innerHTML = '';
+                    console.log( "error" );
 
-                for(var msg in messageErrors) {
-                    var messageError = messageErrors[msg][0];
-                    $boxInfo.innerHTML += messageError + '<br>';
-                    console.log(messageError);
-                }
-            })
+                    var messageErrors = err.responseText;
+                    messageErrors = JSON.parse(messageErrors);
 
+                    // Print Message erros
+                    for(var msg in messageErrors) {
+                        var messageError = messageErrors[msg][0];
+                        $boxInfo.innerHTML += messageError + '<br>';
+                        console.log(messageError);
+                    }
+                })
+
+        } else {
+            console.log(false);
+            $boxInfo.innerHTML = '';
+            $boxInfo.innerHTML += 'Necesitas Aceptar los terminos y condiciones';
+        }
 
     })
 

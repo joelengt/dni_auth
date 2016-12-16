@@ -119,7 +119,7 @@
                         <div class="FormValidate">
                             <div class="FormValidate__terminos-condiciones">
                                 <div class="FormValidate__terminos-condiciones--checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="btnCheck">
                                 </div>
                                 <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#">Terminos y condiciones</a></div>
                             </div>
