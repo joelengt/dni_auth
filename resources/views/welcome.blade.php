@@ -105,7 +105,7 @@
                                     <div class="FormValidate__terminos-condiciones--checkbox">
                                         <input type="checkbox" id="btnCheck">
                                     </div>
-                                    <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
+                                    <div class="FormValidate__terminos-condiciones--text">Acepto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
                                 </div>
                                 <div class="FormValidate__btn-submit">
                                     <div id="btnSendForm" class="btnSendForm">Enviar</div>

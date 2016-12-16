@@ -83,18 +83,22 @@ function formEvent() {
                     var messageErrors = err.responseText;
                     messageErrors = JSON.parse(messageErrors);
 
+                    // Reset border input box
+                    $txtCodigo.style.border = '1px solid #dfdfdf';
+                    $txtDni.style.border = '1px solid #dfdfdf';
+
                     // Print Message erros
                     for(var msg in messageErrors) {
                         var messageError = messageErrors[msg][0];
 
                         // Evaluate input box
                         if(messageError === 'El campo codigo es requerido.' || messageError === 'El campo codigo no es valido.') {
-                            $txtCodigo.style.borderColor = '#f91f1f';
+                            $txtCodigo.style.border = '1px solid #f91f1f';
 
                         }
 
                         if(messageError === 'El campo dni es requerido.'  ||  messageError === 'El campo dni no es valido.') {
-                            $txtDni.style.borderColor = '#f91f1f';
+                            $txtDni.style.border = '1px solid #f91f1f';
                         }
 
                         $boxInfo.innerHTML += messageError + '<br>';
