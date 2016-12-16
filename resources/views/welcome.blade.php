@@ -62,6 +62,26 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            /* Form Validate */
+            .FormValidate {
+                text-align: center;
+            }
+            .FormValidate__terminos-condiciones {
+                display: block;
+                padding-top: 1rem;
+            }
+            .FormValidate__terminos-condiciones--checkbox {
+                display: inline-block;
+            }
+
+            .FormValidate__terminos-condiciones--text {
+                display: inline-block;
+            }
+
+            .FormValidate__btn-submit {
+                display: block;
+                padding-top: 1rem;
+            }
         </style>
     </head>
     <body>
@@ -98,8 +118,16 @@
                                 <input type="text" name="dni">
                             </div>
                         </div>
-                        <div>
-                            <button>Enviar</button>
+                        <div class="FormValidate">
+                            <div class="FormValidate__terminos-condiciones">
+                                <div class="FormValidate__terminos-condiciones--checkbox">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#">Terminos y condiciones</a></div>
+                            </div>
+                            <div class="FormValidate__btn-submit">
+                                <button id="btnSendForm">Enviar</button>
+                            </div>
                         </div>
                     </form>
 
