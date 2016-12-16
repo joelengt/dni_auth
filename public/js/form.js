@@ -65,6 +65,7 @@ function formEvent() {
             dni: $txtDni.value
         }
 
+
         // Evaluate input check
         if($btnCheck.checked === true) {
             // CheckBox is true
@@ -87,6 +88,8 @@ function formEvent() {
                     $txtCodigo.style.border = '1px solid #dfdfdf';
                     $txtDni.style.border = '1px solid #dfdfdf';
 
+                    console.log(infoPartner.dni.length);
+
                     // Print Message erros
                     for(var msg in messageErrors) {
                         var messageError = messageErrors[msg][0];
@@ -94,16 +97,21 @@ function formEvent() {
                         // Evaluate input box
                         if(messageError === 'El campo codigo es requerido.' || messageError === 'El campo codigo no es valido.') {
                             $txtCodigo.style.border = '1px solid #f91f1f';
-
                         }
 
-                        if(messageError === 'El campo dni es requerido.'  ||  messageError === 'El campo dni no es valido.') {
+                        if (messageError === 'El campo dni es requerido.' || messageError === 'El campo dni no es valido.') {
                             $txtDni.style.border = '1px solid #f91f1f';
                         }
 
                         $boxInfo.innerHTML += messageError + '<br>';
-                        console.log(messageError);
+
                     }
+
+                    if(infoPartner.dni.length < 8  || infoPartner.dni.length > 8) {
+                        $txtDni.style.border = '1px solid #f91f1f';
+                        $boxInfo.innerHTML += 'El campo dni debe tener 8 digitos. <br>';
+                    }
+
                 })
 
         } else {
