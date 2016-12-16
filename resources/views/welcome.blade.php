@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="./css/modal/index.css">
         <!-- Styles -->
         <style>
             html, body {
@@ -121,7 +121,7 @@
                                 <div class="FormValidate__terminos-condiciones--checkbox">
                                     <input type="checkbox" id="btnCheck">
                                 </div>
-                                <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#">Terminos y condiciones</a></div>
+                                <div class="FormValidate__terminos-condiciones--text">Aceto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
                             </div>
                             <div class="FormValidate__btn-submit">
                                 <div id="btnSendForm">Enviar</div>
@@ -137,6 +137,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- The Close Button -->
+            <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+            <div id="myModalContent"></div>
+        </div>
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script type="text/javascript">
             $.ajaxSetup({

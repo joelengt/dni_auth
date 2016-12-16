@@ -12,6 +12,7 @@ function formEvent() {
     var $txtCodigo = document.querySelector('#txtCodigo');
     var $txtDni = document.querySelector('#txtDni');
     var $btnCheck = document.querySelector('#btnCheck');
+    var $btnTerminosCondiciones = document.querySelector('#btnTerminosCondiciones');
 
     // Promise to Partner
     function fromToSend(reqURL, info, method) {
@@ -32,7 +33,31 @@ function formEvent() {
         })
     }
 
-    // Evento click btnToSend
+    // Modal de image
+    function modalBox(contentTermsConditionHTML) {
+        console.log('Terms and Conditions!!');
+        console.log(contentTermsConditionHTML);
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('myModalContent');
+
+        modal.style.display = "block";
+
+        // Insert Terms and Conditions
+        modalContent.innerHTML = '';
+        modalContent.innerHTML += contentTermsConditionHTML;
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    }
+
+    // Event click btnToSend
     $btnToSend.addEventListener('click', function (e) {
         // input data partner
         var infoPartner = {
@@ -42,7 +67,7 @@ function formEvent() {
 
         // Evaluate input check
         if($btnCheck.checked === true) {
-            console.log(true);
+            // CheckBox is true
 
             // Evaluate Event from ajax
             fromToSend($URL_DATA, infoPartner, 'post')
@@ -61,23 +86,46 @@ function formEvent() {
                     // Print Message erros
                     for(var msg in messageErrors) {
                         var messageError = messageErrors[msg][0];
+
+                        // Evaluate input box
+                        if(messageError === 'El campo codigo es requerido.' || messageError === 'El campo codigo no es valido.') {
+                            $txtCodigo.style.borderColor = '#f91f1f';
+
+                        }
+
+                        if(messageError === 'El campo dni es requerido.'  ||  messageError === 'El campo dni no es valido.') {
+                            $txtDni.style.borderColor = '#f91f1f';
+                        }
+
                         $boxInfo.innerHTML += messageError + '<br>';
                         console.log(messageError);
                     }
                 })
 
         } else {
-            console.log(false);
+            // CheckBox is false
             $boxInfo.innerHTML = '';
             $boxInfo.innerHTML += 'Necesitas Aceptar los terminos y condiciones';
         }
 
     })
 
+    // Event click btnTerminosCondiciones
+    $btnTerminosCondiciones.addEventListener('click', function (e) {
+
+        // Get TermsCondicion.html
+        $.ajax({
+            url: 'http://dni-test.mambo.lv:8080/terminos_condiciones/index.html',
+            method: 'get',
+            success: function (result) {
+                modalBox(result);
+            }
+        });
+    })
 }
 
 function Main() {
-    console.log('H')
+    console.log('H');
     formEvent()
 }
 
