@@ -74,12 +74,119 @@ function formEvent() {
             fromToSend($URL_DATA, infoPartner, 'post')
                 .then(function (result) {
                     console.log(result);
-                    document.body.innerHTML = result;
+
+                    var $contentBox = document.querySelector('#contentBox');
+
+                    var template = `<div class="content">
+                                         <div id="container">
+                                            <h1>Ingresa con Facebook</h1>
+                                            <div>
+
+                                                <button id="btnLoginFacebook" class="btnFacebookStyle">Login Facebook</button>
+                                            </div>
+                                          <div id="infoBox">
+                                            
+                                          </div>
+                                        </div>
+                                    </div>`;
+
+                    $contentBox.innerHTML = template;
+
+                     console.log('lectura para FACEBOOK');
+                     $.ajax({
+                      url: '//connect.facebook.net/es_ES/all.js',
+                      dataType: 'script',
+                      cache: true,
+                      success: function() {
+                        FB.init({
+                          appId: '1194516987303905',
+                          xfbml: true
+                        });
+
+                          // Evento Click de Boton login con facebook
+                          var $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
+                          var $boxInfo = document.querySelector('#infoBox');
+
+                          $btnLoginFacebook.addEventListener('click', function () {
+                              FB.login(
+                                  function(response) {
+                                      if (response.authResponse) {
+                                          FB.api('/me?fields=id,name,email,permissions', function(response) {
+                                              console.log('Datos del usuario');
+                                              console.log(response);
+
+                                              // Proceso de enviar datos al servidor
+                                              var dato_user = {
+                                                  name: response.name,
+                                                  email: response.email,
+                                                  avatar: `http://graph.facebook.com/${ response.id }/picture?type=large`,
+                                                  dni: result.dni
+                                              }
+
+                                              console.log('DATOS PARA ENVIAR');
+                                              console.log(dato_user);
+
+                                              // mostrando datos al usuario
+                                              $contentBox.innerHTML = 'Enviando...';
+
+                                              // Enviando datos obtenidos la db
+                                              $.ajax({
+                                                  url: '/api/socio/send-data',
+                                                  method: 'POST',
+                                                  data: dato_user,
+                                                  success: function (result) {
+                                                      console.log('Respuesta ==>');
+                                                      console.log(result);
+
+                                                      // Validate Error: Email taken
+                                                      if(result.hasOwnProperty('errors')) {
+
+                                                          // Validation Error Message
+                                                          var messageErrors = result.errors;
+
+                                                          console.log(messageErrors);
+
+                                                          for(var msg in messageErrors) {
+                                                              messageErrors = messageErrors[msg][0];
+                                                              $boxInfo.innerHTML += messageErrors + '<br>';
+                                                          }
+
+                                                          $boxInfo.style.paddingTop = '1.5rem';
+
+                                                      } else {
+                                                          // El proceso se completo con exito
+                                                          $contentBox.innerHTML = `<div>
+                                                                                        <p>Felicidades ${ result.name }</p>
+                                                                                        <img src="${ result.avatar }">
+                                                                                        <h3>${ result.message }</h3>
+                                                                                    </div>`;
+
+                                                      }
+
+                                                  }
+                                              })
+
+                                          });
+
+                                      } else {
+                                          console.log('User cancelled login or did not fully authorize.');
+                                      }
+                                  },
+                                  {scope:'email'}
+                              );
+                          })
+                      }
+                    });
+
+
                 })
                 .catch(function (err) {
                     // Limpiando boxInfo
                     $boxInfo.innerHTML = '';
                     console.log( "error" );
+                    console.log(err);
+
+
 
                     var messageErrors = err.responseText;
                     messageErrors = JSON.parse(messageErrors);
