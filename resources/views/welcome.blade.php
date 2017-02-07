@@ -5,73 +5,73 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_token" content="{!! csrf_token() !!}"/>
+
+        <link rel="icon" type="image/png" href="./images/logo-favicon-32x32.png">
+
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="./css/modal/index.css">
-        <link rel="stylesheet" href="./css/form/index.css">
         
         <!-- Styles -->
+        <link rel="stylesheet" href="./css/app.css">
 
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
-
-
-            <div class="content" id="contentBox">
-                <div>
-                    <form id="FormMain" data-url="{{ route('validate.user') }}" class="FormMain">
-                        <div class="FormMain__title">
-                            <h2>Validar usuario</h2>
+        <section class="ContentForm">
+            <div class="ContentFormBox">
+                <div class="ContentFormBox__content">
+                    <div class="ContentFormBox__tittle">
+                        <div class="ContentFormBox__logo">
+                            <img src="./images/logo-contottus-260x173.jpg">
                         </div>
-                        <div class="FormMain__content">
-                            <div class="FormMain__content--box-inputs">
-                                <div class="FormMain__content--codigo">
-                                    <div class="FormMain__content--codigo__label">
-                                        <label for="#">Codigo</label>
-                                    </div>
-                                    <div class="FormMain__content--codigo__input">
-                                        <input type="text" name="codigo" id="txtCodigo" class="inputTextStyle">
-                                    </div>
-                                </div>
-                                <div class="FormMain__content--dni">
-                                    <div class="FormMain__content--codigo__label">
-                                        <label for="#">DNI</label>
-                                    </div>
-                                    <div class="FormMain__content--codigo__input">
-                                        <input type="text" name="dni" id="txtDni" class="inputTextStyle  inputTextStyle--codigo-helper">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="FormMain__content--TermsConditions  FormValidate">
-                                <div class="FormValidate__terminos-condiciones">
-                                    <div class="FormValidate__terminos-condiciones--checkbox">
-                                        <input type="checkbox" id="btnCheck">
-                                    </div>
-                                    <div class="FormValidate__terminos-condiciones--text">Acepto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
-                                </div>
-                                <div class="FormValidate__btn-submit">
-                                    <div id="btnSendForm" class="btnSendForm">Enviar</div>
-                                </div>
-                            </div>
+                        <div>
+                            <h2>
+                                Nuestra decisión es GANAR!
+                                Estás listo?
+                            </h2>
+                            <p>
+                                Ingresa tus datos para unirte a #ConTottus.
+                            </p>
                         </div>
-                    </form>
+                    </div>
+                    <div class="ContentFormBox__form">
+                        <div class="content" id="contentBox">
+                            <form id="FormMain" data-url="{{ route('validate.user') }}" class="FormMain">
+                                <div class="FormMain__content">
+                                    <div class="FormMain__title">
+                                        <p>Ingresa tus Datos</p>
+                                    </div>
+                                    <div class="FormMain__content--box-inputs">
+                                        <div class="FormMain__content--dni">
+                                            <div class="FormMain__content--codigo__label">
+                                                <label for="#">Numero Documento</label>
+                                            </div>
+                                            <div class="FormMain__content--codigo__input">
+                                                <input type="text" name="dni" id="txtDni" class="inputTextStyle  inputTextStyle--codigo-helper" placeholder="Ingresa tu numero de documento">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="FormMain__content--TermsConditions  FormValidate">
+                                        <div class="FormValidate__terminos-condiciones">
+                                            <div class="FormValidate__terminos-condiciones--checkbox">
+                                                <input type="checkbox" id="btnCheck">
+                                            </div>
+                                            <div class="FormValidate__terminos-condiciones--text">Acepto los <a href="#" id="btnTerminosCondiciones">Terminos y condiciones</a></div>
+                                        </div>
+                                        <div class="FormValidate__btn-submit">
+                                            <div id="btnSendForm" class="btnSendForm">Enviar</div>
+                                        </div>
+                                    </div>
+                                    <div id="boxInfo" style="padding-top: 1rem;"></div>
+                                </div>
+                            </form>
 
-                    <div id="boxInfo"></div>
-                    @if($errors->any())
-                        <h4>{{$errors->first()}}</h4>
-                    @endif
-
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- The Modal -->
         <div id="myModal" class="modal">

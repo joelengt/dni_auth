@@ -24,7 +24,6 @@ class ValidatePartnerRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required|exists:re_socios,codigo',
             'dni' => 'required|exists:re_socios,numero_doc'
         ];
     }

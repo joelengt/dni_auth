@@ -1,9 +1,195 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+// @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+// main
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.ContentForm {
+    background: black;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding-top: 0;
+    // background-image: url('/images/bg-responsive.jpg');
+    background-size: cover;
+    background-position: center top;
+    height: 700px;
+    background-repeat: no-repeat;
+    background-color: #dfe9ee;
+    color: #ffffff;
+}
+
+.ContentFormBox {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 4rem;
+    background: rgba(93, 91, 91, 0.26);
+}
+
+.ContentFormBox__logo {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.ContentFormBox__logo img {
+    width: 100%;
+}
+
+.ContentFormBox__content {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.ContentFormBox__tittle {
+    display: block;
+    width: 100%;
+}
+.ContentFormBox__tittle h2 {
+    font-size: 3rem;
+}
+
+.ContentFormBox__tittle p {
+    font-size: 2rem;
+}
+
+.ContentFormBox__form {
+    display: block;
+    width: 100%;
+
+}
+
+.ContentFormBox__form  input {
+    display: block;
+    text-align: left;
+    padding: 0.8rem;
+    width: 100%;
+    font-size: 1.7rem;
+    color: black;
+}
+
+.FormMain__content--codigo__label {
+    text-align: left;
+}
+
+.FormValidate__terminos-condiciones {
+    padding-top: 2rem;
+}
+
+.FormValidate__terminos-condiciones--checkbox {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.FormValidate__terminos-condiciones--text {
+    display: inline-block;
+    padding-left: 0.8rem;
+    vertical-align: middle;
+}
+
+.FormValidate__btn-submit {
+    padding-top: 1rem;
+}
+
+.btnSendForm {
+    background: #02a3d4;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 2rem;
+}
+
+.ContentFormBox__form .FormMain__title {
+    display: none;
+}
+.FormValidate__terminos-condiciones--text a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+@media(min-width: 900px) {
+    
+    // .ContentForm {
+    //     background-image: url('/images/bg.jpg');
+    // }  
+
+    .ContentFormBox {
+        max-width: 100%;
+        margin-top: 25rem;
+    }
+
+    .ContentFormBox__content {
+        max-width: 100%;
+        margin: 0 auto;
+        padding-top: 9rem;
+        padding-bottom: 3rem;
+    }
+
+    .ContentFormBox__logo {
+        max-width: 200px;
+        position: absolute;
+        top: -153px;
+        left: 0;
+        right: 72px;
+    }
+
+    .ContentFormBox__tittle {
+        display: inline-block;
+        width: 40%;
+        text-align: left;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        position: relative;
+    }
+    
+    .ContentFormBox__form .FormMain__title {
+        display: block;
+        font-size: 2rem;
+        text-align: left;
+    }
+
+    .ContentFormBox__tittle h2 {
+        font-size: 4rem;
+    }
+
+    .ContentFormBox__tittle p {
+        font-size: 2.5rem;
+    }
+
+    .ContentFormBox__form {
+        display: inline-block;
+        width: 45%;
+    }
+
+    .FormValidate__terminos-condiciones {
+        text-align: left;
+    }
+
+    .FormMain__content {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
+
+    .FormValidate__terminos-condiciones--checkbox {
+        width: 20px;
+    }
+
+}

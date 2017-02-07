@@ -45,6 +45,11 @@
     background: white;
     padding: 3rem;
     margin: 5rem;
+    color: gray;
+    overflow: scroll;
+    height: 600px;
+    max-width: 600px;
+    margin: 4rem auto;
 }
 
 @-webkit-keyframes zoom {
