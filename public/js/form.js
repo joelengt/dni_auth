@@ -145,13 +145,14 @@ function formEvent() {
                                                           var messageErrors = result.errors;
 
                                                           console.log(messageErrors);
+                                                          $contentBox.innerHTML = '';
 
                                                           for(var msg in messageErrors) {
-                                                              messageErrors = messageErrors[msg][0];
-                                                              $boxInfo.innerHTML += messageErrors + '<br>';
+                                                              messageErrors = messageErrors[msg];
+                                                              $contentBox.innerHTML += messageErrors + '<br>';
                                                           }
 
-                                                          $boxInfo.style.paddingTop = '1.5rem';
+                                                          // $boxInfo.style.paddingTop = '1.5rem';
 
                                                       } else {
                                                           // El proceso se completo con exito
