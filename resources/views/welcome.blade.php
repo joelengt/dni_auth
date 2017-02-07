@@ -8,7 +8,7 @@
 
         <link rel="icon" type="image/png" href="./images/logo-favicon-32x32.png">
 
-        <title>Laravel</title>
+        <title>ConTottus</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="./css/modal/index.css">
