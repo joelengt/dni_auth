@@ -227,6 +227,8 @@ function formEvent() {
                     })
                     .catch(function (err) {
 
+                        var $contentBox = document.querySelector('#contentBox');
+                        
                         // Limpiando boxInfo
                         $boxInfo.innerHTML = '';
                         console.log( "error" );
@@ -235,7 +237,11 @@ function formEvent() {
                         var msg = '';
 
                         if(err.status === 422) {
-                            msg = 'El número de documento, no fue encontrado'
+                            msg = `<div>
+                                    <h2>¡Ups, no podemos encontrarte!</h2>
+                                    <p>Por favor escríbenos a <b>consultas@podemostodo.com</b> con tu DNI para solucionar tu caso.</p>
+                                   </div>`;
+
 
                         } else {
 
@@ -244,10 +250,10 @@ function formEvent() {
 
                         $inputDoc.style.border = '1px solid #ec3425';
 
-                        $boxInfo.style.display = 'block';
+                        // $boxInfo.style.display = 'block';
 
                         // Evaluate input box
-                        $boxInfo.innerHTML = msg;
+                        $contentBox.innerHTML = msg;
 
                     })
 
