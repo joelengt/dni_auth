@@ -47,9 +47,10 @@
     margin: 5rem;
     color: gray;
     overflow: scroll;
-    height: 600px;
-    max-width: 600px;
-    margin: 4rem auto;
+    height: 500px;
+    max-width: 500px;
+    margin: 9rem auto;
+    position: relative;
 }
 
 @-webkit-keyframes zoom {

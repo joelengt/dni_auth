@@ -32,14 +32,14 @@ class SociosController extends Controller
 
             } else {
                 // Render view: Processo again
-                $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
+                $data['message'] = 'user_registed';
 
                 return response()->json($data);
             }
 
         } else {
             // Render view: Processo fail
-            $data['message'] = 'El usuario solicitado no fue encontrado 403';
+            $data['message'] = 'user_not_found';
             return response()->json($data);
         }
     }
@@ -63,7 +63,7 @@ class SociosController extends Controller
             // Validate attribute email
             if($userFound->email !== '') {
                 // Render view: Processo again
-                $data['message'] = 'El campo email '. $userFound->email .' ya se encuentra registrado en la DB';
+                $data['message'] = 'Tu usuario ya esta registrado';
                 return response()->json($data);
 
             } else {
@@ -79,7 +79,7 @@ class SociosController extends Controller
 
         } else {
             // Render view: Processo fail
-            $data['message'] = 'El usuario solicitado no fue encontrado 403';
+            $data['message'] = 'user_not_found';
             return response()->json($data);
         }
 

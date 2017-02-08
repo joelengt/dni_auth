@@ -7704,29 +7704,35 @@ body {
   position: relative;
   overflow: hidden;
   padding-top: 0;
+  background-image: url("/images/bg_responsive.jpg");
   background-size: cover;
   background-position: center top;
-  height: 700px;
+  height: 750px;
   background-repeat: no-repeat;
-  background-color: #dfe9ee;
+  background-color: #79a12c;
   color: #ffffff;
 }
 
 .ContentFormBox {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
   margin-top: 4rem;
-  background: rgba(93, 91, 91, 0.26);
+  background: rgba(0, 0, 0, 0.5);
+  padding-bottom: 16rem;
 }
 
 .ContentFormBox__logo {
-  max-width: 200px;
+  max-width: 170px;
   margin: 0 auto;
+  background: white;
+  height: 150px;
 }
 
 .ContentFormBox__logo img {
   width: 100%;
+  position: relative;
+  top: 15px;
 }
 
 .ContentFormBox__content {
@@ -7759,6 +7765,8 @@ body {
   width: 100%;
   font-size: 1.7rem;
   color: black;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .FormMain__content--codigo__label {
@@ -7801,10 +7809,22 @@ body {
   text-decoration: underline;
 }
 
+.btnFacebookStyle {
+  background: #3050a4;
+  padding: 1rem;
+  display: block;
+  margin: 0 auto;
+  border: 0;
+}
+
 @media (min-width: 900px) {
+  .ContentForm {
+    background-image: url("/images/bg_web.jpg");
+  }
   .ContentFormBox {
     max-width: 100%;
     margin-top: 25rem;
+    padding-bottom: 3rem;
   }
   .ContentFormBox__content {
     max-width: 100%;
@@ -7813,11 +7833,13 @@ body {
     padding-bottom: 3rem;
   }
   .ContentFormBox__logo {
-    max-width: 200px;
+    max-width: 170px;
     position: absolute;
     top: -153px;
     left: 0;
     right: 72px;
+    height: 160px;
+    background: white;
   }
   .ContentFormBox__tittle {
     display: inline-block;
@@ -7826,11 +7848,17 @@ body {
     padding-left: 3rem;
     padding-right: 3rem;
     position: relative;
+    vertical-align: middle;
   }
   .ContentFormBox__form .FormMain__title {
     display: block;
     font-size: 2rem;
     text-align: left;
+  }
+  .ContentFormBox__logo img {
+    width: 100%;
+    position: relative;
+    top: 29px;
   }
   .ContentFormBox__tittle h2 {
     font-size: 4rem;
@@ -7841,6 +7869,8 @@ body {
   .ContentFormBox__form {
     display: inline-block;
     width: 45%;
+    vertical-align: middle;
+    border-left: 1px solid white;
   }
   .FormValidate__terminos-condiciones {
     text-align: left;
@@ -7848,6 +7878,7 @@ body {
   .FormMain__content {
     padding-left: 6rem;
     padding-right: 6rem;
+    padding-bottom: 2rem;
   }
   .FormValidate__terminos-condiciones--checkbox {
     width: 20px;

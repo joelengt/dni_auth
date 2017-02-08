@@ -5,7 +5,7 @@ function formEvent() {
     // Date from Form input
     var $formMain = document.querySelector('#FormMain');
     var $URL_DATA = $formMain.dataset.url;
-    var $boxInfo = document.querySelector('#boxInfo')
+    var $boxInfo = document.querySelector('#boxInfo');
 
     // Form DOM Elements
     var $btnToSend = document.querySelector('#btnSendForm');
@@ -64,176 +64,232 @@ function formEvent() {
             dni: $txtDni.value
         }
 
+       var $inputDoc = document.querySelector('#txtDni');
 
-        // Evaluate input check
-        if($btnCheck.checked === true) {
-            // CheckBox is true
+        if($inputDoc.value !== '' &&
+           $inputDoc.value.length < 13) {
 
-            // Evaluate Event from ajax
-            fromToSend($URL_DATA, infoPartner, 'post')
-                .then(function (result) {
-                    console.log(result);
+            var $btnCheck2 = document.querySelector('#btnCheck');
 
-                    var $contentBox = document.querySelector('#contentBox');
+            console.log('campo error paso todos');
 
-                    if(result.hasOwnProperty('message')) {
+            // Evaluate input check
+            if($btnCheck2.checked === true) {
+                // CheckBox is true
+                console.log('check');
 
-                        $contentBox.innerHTML += result.message + '<br>';
+                // Evaluate Event from ajax
+                fromToSend($URL_DATA, infoPartner, 'post')
+                    .then(function (result) {
+                        console.log(result);
+                        var template = '';
+                        var message = '';
 
-                    } else {
+                        var $contentBox = document.querySelector('#contentBox');
 
-                        var template = `<div class="content">
-                                             <div id="container">
-                                                <h1>Ingresa con Facebook</h1>
-                                                <div>
+                        if(result.hasOwnProperty('message')) {
 
-                                                    <button id="btnLoginFacebook" class="btnFacebookStyle">Login Facebook</button>
-                                                </div>
-                                              <div id="infoBox">
-                                                
-                                              </div>
-                                            </div>
+                            if(result.message === 'user_registed') {
+
+                                message = 'Tu ya eres parte';
+
+                            }
+
+                            template = `<div>
+                                            <h2>
+                                                !${ message }¡
+                                            </h2>
+                                            <p>Revisa tu Facebook. Dentro de poco te llegará una solicitud de amistad <br> ¡Acéptala y prepárate para lo que viene!</p>
                                         </div>`;
 
-                        $contentBox.innerHTML = template;
+                            $contentBox.innerHTML = template;
 
-                         console.log('lectura para FACEBOOK');
-                         $.ajax({
-                              url: '//connect.facebook.net/es_ES/all.js',
-                              dataType: 'script',
-                              cache: true,
-                              success: function() {
-                                FB.init({
-                                  appId: '1194516987303905',
-                                  xfbml: true
-                                });
+                        } else {
 
-                               // Evento Click de Boton login con facebook
-                               var $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
-                               var $boxInfo = document.querySelector('#infoBox');
+                            template = `<div class="content">
+                                                 <div id="container">
+                                                    <h1>Ingresa con Facebook</h1>
+                                                    <div>
 
-                               $btnLoginFacebook.addEventListener('click', function () {
-                                     FB.login(
-                                         function(response) {
-                                             if (response.authResponse) {
-                                                 FB.api('/me?fields=id,name,email,permissions', function(response) {
-                                                     console.log('Datos del usuario');
-                                                     console.log(response);
+                                                        <button id="btnLoginFacebook" class="btnFacebookStyle">Login Facebook</button>
+                                                    </div>
+                                                  <div id="infoBox">
+                                                    
+                                                  </div>
+                                                </div>
+                                            </div>`;
 
-                                                     // Proceso de enviar datos al servidor
-                                                     var dato_user = {
-                                                         name: response.name,
-                                                         email: response.email,
-                                                         avatar: `http://graph.facebook.com/${ response.id }/picture?type=large`,
-                                                         dni: result.dni
-                                                     }
+                            $contentBox.innerHTML = template;
 
-                                                     console.log('DATOS PARA ENVIAR');
-                                                     console.log(dato_user);
+                             console.log('lectura para FACEBOOK');
+                             $.ajax({
+                                  url: '//connect.facebook.net/es_ES/all.js',
+                                  dataType: 'script',
+                                  cache: true,
+                                  success: function() {
+                                    FB.init({
+                                      appId: '1194516987303905',
+                                      xfbml: true
+                                    });
 
-                                                     // mostrando datos al usuario
-                                                     $contentBox.innerHTML = 'Enviando...';
+                                   // Evento Click de Boton login con facebook
+                                   var $btnLoginFacebook = document.querySelector('#btnLoginFacebook');
+                                   var $boxInfo = document.querySelector('#infoBox');
 
-                                                     // Enviando datos obtenidos la db
-                                                     $.ajax({
-                                                         url: '/api/socio/send-data',
-                                                         method: 'POST',
-                                                         data: dato_user,
-                                                         success: function (result) {
-                                                             console.log('Respuesta ==>');
-                                                             console.log(result);
+                                   $btnLoginFacebook.addEventListener('click', function () {
+                                         FB.login(
+                                             function(response) {
+                                                 if (response.authResponse) {
+                                                     FB.api('/me?fields=id,name,email,permissions', function(response) {
+                                                         console.log('Datos del usuario');
+                                                         console.log(response);
 
-                                                             // Validate Error: Email taken
-                                                             if(result.hasOwnProperty('errors')) {
+                                                         // Proceso de enviar datos al servidor
+                                                         var dato_user = {
+                                                             name: response.name,
+                                                             email: response.email,
+                                                             avatar: `http://graph.facebook.com/${ response.id }/picture?type=large`,
+                                                             dni: result.dni
+                                                         }
 
-                                                                 // Validation Error Message
-                                                                 var messageErrors = result.errors;
+                                                         console.log('DATOS PARA ENVIAR');
+                                                         console.log(dato_user);
 
-                                                                 console.log(messageErrors);
-                                                                 $contentBox.innerHTML = '';
+                                                         // mostrando datos al usuario
+                                                         $contentBox.innerHTML = 'Enviando...';
 
-                                                                 for(var msg in messageErrors) {
-                                                                     messageErrors = messageErrors[msg];
-                                                                     $contentBox.innerHTML += messageErrors + '<br>';
+                                                         // Enviando datos obtenidos la db
+                                                         $.ajax({
+                                                             url: '/api/socio/send-data',
+                                                             method: 'POST',
+                                                             data: dato_user,
+                                                             success: function (result) {
+                                                                 console.log('Respuesta ==>');
+                                                                 console.log(result);
+
+                                                                 // Validate Error: Email taken
+                                                                 if(result.hasOwnProperty('errors')) {
+
+                                                                     // Validation Error Message
+                                                                     var messageErrors = result.errors;
+
+                                                                     console.log();
+                                                                     $contentBox.innerHTML = '';
+
+
+
+                                                                     if( messageErrors.email[0] !== undefined ) {
+
+                                                                        message = 'Esta cuenta de facebook, ya fue registrada';
+
+                                                                     }
+
+                                                                     template = `<div>
+                                                                                     <h2>
+                                                                                         !${ message }¡
+                                                                                     </h2>
+                                                                                     <p>Porfavor, intenta nuevamente con tu cuenta personal</p>
+                                                                                 </div>`;
+
+                                                                     $contentBox.innerHTML = template;
+
+                                                                     // $boxInfo.style.paddingTop = '1.5rem';
+
+                                                                 } else {
+                                                                     // El proceso se completo con exito
+                                                                     $contentBox.innerHTML = `<div>
+                                                                                                   <h2>¡Gracias por unirte!</h2>
+                                                                                                   <p>Revisa tu Facebook. Dentro de poco te llegará una solicitud de amistad</p>
+                                                                                                   <p>¡Acéptala y prepárate para lo que viene!</p>
+                                                                                              </div>`;
+
                                                                  }
 
-                                                                 // $boxInfo.style.paddingTop = '1.5rem';
-
-                                                             } else {
-                                                                 // El proceso se completo con exito
-                                                                 $contentBox.innerHTML = `<div>
-                                                                                               <p>Felicidades ${ result.name }</p>
-                                                                                               <img src="${ result.avatar }">
-                                                                                               <h3>${ result.message }</h3>
-                                                                                           </div>`;
-
                                                              }
+                                                         })
 
-                                                         }
-                                                     })
+                                                     });
 
-                                                 });
+                                                 } else {
+                                                     console.log('User cancelled login or did not fully authorize.');
+                                                 }
+                                             },
+                                             {scope:'email'}
+                                         );
+                                   })
 
-                                             } else {
-                                                 console.log('User cancelled login or did not fully authorize.');
-                                             }
-                                         },
-                                         {scope:'email'}
-                                     );
-                               })
+                              }
+                            });
 
-                          }
-                        });
-
-                    }
+                        }
 
 
-                })
-                .catch(function (err) {
-                    // Limpiando boxInfo
-                    $boxInfo.innerHTML = '';
-                    console.log( "error" );
-                    console.log(err);
+                    })
+                    .catch(function (err) {
 
+                        // Limpiando boxInfo
+                        $boxInfo.innerHTML = '';
+                        console.log( "error" );
+                        console.log(err);
 
+                        var msg = '';
 
-                    var messageErrors = err.responseText;
-                    messageErrors = JSON.parse(messageErrors);
+                        if(err.status === 422) {
+                            msg = 'El número de documento, no fue encontrado'
 
-                    // Reset border input box
-                    $txtCodigo.style.border = '1px solid #dfdfdf';
-                    $txtDni.style.border = '1px solid #dfdfdf';
+                        } else {
 
-                    console.log(infoPartner.dni.length);
+                            msg = 'Error en procesar tu numero de documento'
+                        }
 
-                    // Print Message erros
-                    for(var msg in messageErrors) {
-                        var messageError = messageErrors[msg][0];
+                        $inputDoc.style.border = '1px solid #ec3425';
+
+                        $boxInfo.style.display = 'block';
 
                         // Evaluate input box
-                        if(messageError === 'El campo codigo es requerido.' || messageError === 'El campo codigo no es valido.') {
-                            $txtCodigo.style.border = '1px solid #f91f1f';
-                        }
+                        $boxInfo.innerHTML = msg;
 
-                        if (messageError === 'El campo dni es requerido.' || messageError === 'El campo dni no es valido.') {
-                            $txtDni.style.border = '1px solid #f91f1f';
-                        }
+                    })
 
-                        $boxInfo.innerHTML += messageError + '<br>';
+            } else {
+                console.log('no check');
 
-                    }
+                var $boxInfo1 = document.querySelector('#boxInfo')
 
-                    if(infoPartner.dni.length < 8  || infoPartner.dni.length > 8) {
-                        $txtDni.style.border = '1px solid #f91f1f';
-                        $boxInfo.innerHTML += 'El campo dni debe tener 8 digitos. <br>';
-                    }
+               $inputDoc.style.border = '1px solid #ec3425';
 
-                })
+                // CheckBox is false
+                $boxInfo1.style.display = 'block';
+                $boxInfo1.innerHTML = '';
+                $boxInfo1.innerHTML = 'Necesitas Aceptar los terminos y condiciones';
+
+            }
 
         } else {
+
+            console.log('campo error');
+
+
+            var $inputDoc1 = document.querySelector('#txtDni');
+
+            var msg = '';
+
+            // Messages erros
+            if($inputDoc.value === '') {
+                msg = 'El campo documento es obligatorio';
+
+            } else if ($inputDoc.value.length < 12) {
+                msg = 'El campo documento debe tener almenos 12 digitos';
+
+            } else {
+                msg = 'El campo documento es obligatorio';
+            }
+
+            $inputDoc1.style.border = '1px solid #ec3425';
+
             // CheckBox is false
             $boxInfo.innerHTML = '';
-            $boxInfo.innerHTML += 'Necesitas Aceptar los terminos y condiciones';
+            $boxInfo.innerHTML = msg;
         }
 
     })
@@ -252,9 +308,55 @@ function formEvent() {
     })
 }
 
+function validationTypeFrom() {
+
+    var $inputDoc = document.querySelector('#txtDni');
+    var $msgBoxFrom = document.querySelector('#boxInfo');
+    
+    $msgBoxFrom.innerHTML = '';
+
+    var msg = '';
+
+    $msgBoxFrom.style.color = '#ec3425';
+
+    $('#txtDni').on('input', function() { 
+
+        var numberLimit = 12;
+
+        $inputDoc.style.borderColor = '#dedede';
+
+        if($inputDoc.value.length >= numberLimit) {
+            $inputDoc.value = $inputDoc.value.slice(0,numberLimit); 
+            $msgBoxFrom.style.display = 'none';
+        }
+
+        if($inputDoc.value.length < numberLimit) {
+
+            msg = `El campo documento debe tener ${ numberLimit } digitos`;
+            $inputDoc.style.borderColor = '#ec3425';
+
+            $msgBoxFrom.style.display = 'block';
+            $msgBoxFrom.innerHTML = msg;
+        }
+
+        // Validation only number
+        var word = $inputDoc.value;
+
+        if(parseInt(word[word.length - 1]) >= 0 === false) {
+
+            word = word.replace(word[word.length - 1],'');
+
+        }
+
+        $inputDoc.value = word;
+
+    });
+    
+}
+
 function Main() {
-    console.log('H');
-    formEvent()
+    formEvent();
+    validationTypeFrom();
 }
 
 window.onload = Main()

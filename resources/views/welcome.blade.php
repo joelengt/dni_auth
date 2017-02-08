@@ -8,7 +8,7 @@
 
         <link rel="icon" type="image/png" href="./images/logo-favicon-32x32.png">
 
-        <title>ConTottus</title>
+        <title>#ConTottus</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="./css/modal/index.css">
@@ -23,15 +23,15 @@
                 <div class="ContentFormBox__content">
                     <div class="ContentFormBox__tittle">
                         <div class="ContentFormBox__logo">
-                            <img src="./images/logo-contottus-260x173.jpg">
+                            <img src="./images/logo-contottus-260x173 (2).jpg">
                         </div>
                         <div>
                             <h2>
-                                Nuestra decisión es GANAR!
-                                Estás listo?
+                                TOTTUS QUIEBRA
                             </h2>
                             <p>
-                                Ingresa tus datos para unirte a #ConTottus.
+                               Las bareras entre los colaboradores.<br>
+                               ¡Sé parte del cambio!
                             </p>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                                     <div class="FormMain__content--box-inputs">
                                         <div class="FormMain__content--dni">
                                             <div class="FormMain__content--codigo__label">
-                                                <label for="#">Numero Documento</label>
+                                                <label for="#">Número Documento</label>
                                             </div>
                                             <div class="FormMain__content--codigo__input">
                                                 <input type="text" name="dni" id="txtDni" class="inputTextStyle  inputTextStyle--codigo-helper" placeholder="Ingresa tu numero de documento">
@@ -63,7 +63,7 @@
                                             <div id="btnSendForm" class="btnSendForm">Enviar</div>
                                         </div>
                                     </div>
-                                    <div id="boxInfo" style="padding-top: 1rem;"></div>
+                                    <div id="boxInfo" style="padding-top: 1rem; text-align: left;"></div>
                                 </div>
                             </form>
 
@@ -76,7 +76,6 @@
         <!-- The Modal -->
         <div id="myModal" class="modal">
             <!-- The Close Button -->
-            <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
             <div id="myModalContent"></div>
         </div>
 
